@@ -1,0 +1,37 @@
+package com.cg.order.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cg.order.alldto.CategoryDTO;
+import com.cg.order.model.Orders;
+import com.cg.order.service.OrderService;
+
+import jakarta.persistence.criteria.Order;
+
+@RestController
+public class MyController {
+	@Autowired
+	private OrderService orderService;
+	
+@PostMapping("/create")
+public ResponseEntity<Orders> createOrder(@RequestBody Orders order){
+	return new ResponseEntity<Orders>(orderService.create(order),HttpStatus.CREATED);
+}
+
+@GetMapping("/get/{oid}")
+public ResponseEntity<Orders> getOrder(@PathVariable int orderId){
+	return new ResponseEntity<Orders>(orderService.getById(orderId),HttpStatus.OK);
+}
+@GetMapping("/status{cid}{pid}")
+public ResponseEntity<String> statusOrder(@PathVariable int categoryId,@PathVariable int productId){
+	return new ResponseEntity<String>(orderService.statusOrder(categoryId,productId),HttpStatus.OK);
+}
+
+}

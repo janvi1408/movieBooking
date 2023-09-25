@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+MovieBookingApp,com.cg.admin.pojo,City,144,23,29,1,2,4,23,4,8,4
+MovieBookingApp,com.cg.admin.pojo,Theater,186,24,38,0,3,4,29,4,10,4
+MovieBookingApp,com.cg.admin.pojo,Movies,144,23,29,1,2,4,23,4,8,4
+MovieBookingApp,com.cg.admin.exception,ExceptionHandler,7,3,0,0,1,1,1,1,1,1
+MovieBookingApp,com.cg.admin.exception,InvalidId,0,4,0,0,0,2,0,1,0,1
+MovieBookingApp,com.cg.admin,MovieBookingAppApplication,5,3,0,0,2,1,1,1,1,1
+MovieBookingApp,com.cg.admin.controller,AdminController,81,3,0,0,9,1,9,1,9,1
+MovieBookingApp,com.cg.admin.services,MovieServiceImpl,294,161,12,6,49,30,15,9,6,9
+MovieBookingApp,com.cg.admin.security,Config,0,89,0,0,0,9,0,7,0,7
+MovieBookingApp,com.cg.admin.aop,LoggingAdvice,54,0,0,0,13,0,3,0,3,0

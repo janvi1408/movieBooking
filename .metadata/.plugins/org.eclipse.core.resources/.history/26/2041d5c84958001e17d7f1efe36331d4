@@ -1,0 +1,15 @@
+package com.cg.admin.services;
+
+import com.cg.admin.pojo.City;
+import com.cg.admin.pojo.Movies;
+import com.cg.admin.pojo.Theater;
+
+public interface MovieService {
+public City addCity(City city);
+public String removeCity(int cid);
+public Theater addTheater(int cid,Theater theater);
+public String removeTheater(int tid);
+public Movies addMovies(Movies movies);
+public String removeMovies(int mid);
+
+}

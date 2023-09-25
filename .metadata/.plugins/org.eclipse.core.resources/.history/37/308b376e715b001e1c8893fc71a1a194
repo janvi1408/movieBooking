@@ -1,0 +1,13 @@
+package com.cg.user;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class EurekhaForMovieBookingApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(EurekhaForMovieBookingApplication.class, args);
+	}
+
+}

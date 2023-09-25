@@ -1,0 +1,5 @@
+package com.cg.user.dao;
+
+public interface UserRepo {
+
+}

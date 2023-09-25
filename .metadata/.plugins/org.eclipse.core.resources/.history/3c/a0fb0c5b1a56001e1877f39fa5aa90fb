@@ -1,0 +1,7 @@
+package com.cg.demo.dto;
+
+public class CategoryDTO {
+	private Integer cid;
+	private int pid;
+	private String categoryName;
+}

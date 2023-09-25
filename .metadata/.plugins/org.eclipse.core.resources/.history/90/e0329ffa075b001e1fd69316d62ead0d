@@ -1,0 +1,5 @@
+package com.cg.admin.security;
+
+public class Config {
+
+}

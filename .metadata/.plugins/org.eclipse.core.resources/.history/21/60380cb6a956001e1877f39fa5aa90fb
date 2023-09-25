@@ -1,0 +1,6 @@
+package com.cg.order.model;
+
+public class Orders {
+//private <Product> product;
+
+}

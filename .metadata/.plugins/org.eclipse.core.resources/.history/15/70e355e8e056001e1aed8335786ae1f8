@@ -1,0 +1,14 @@
+package com.cg.order.service;
+
+import com.cg.order.alldto.CategoryDTO;
+import com.cg.order.alldto.ProductDTO;
+import com.cg.order.model.Orders;
+
+import jakarta.persistence.criteria.Order;
+
+public interface OrderService {
+	
+public Orders create(Orders order);
+public String statusOrder(int categoryId,int productId);
+public Orders getById(int orderId)throws InvalidOrderIdException;
+}

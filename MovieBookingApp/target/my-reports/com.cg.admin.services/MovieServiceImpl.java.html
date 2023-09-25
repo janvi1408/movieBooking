@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MovieServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MovieBookingApp</a> &gt; <a href="index.source.html" class="el_package">com.cg.admin.services</a> &gt; <span class="el_source">MovieServiceImpl.java</span></div><h1>MovieServiceImpl.java</h1><pre class="source lang-java linenums">package com.cg.admin.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.cg.admin.exception.InvalidId;
+import com.cg.admin.pojo.City;
+import com.cg.admin.pojo.Movies;
+import com.cg.admin.pojo.Theater;
+import com.cg.admin.repo.CityRepo;
+import com.cg.admin.repo.MoviesRepo;
+import com.cg.admin.repo.TheaterRepo;
+@Component
+<span class="fc" id="L16">public class MovieServiceImpl implements MovieService{</span>
+
+	@Autowired
+	private CityRepo cityRepo;
+	@Autowired
+	private MoviesRepo moviesRepo;
+	@Autowired
+	private TheaterRepo theaterRepo;
+//	cityRepo.findById(city.getCid()).get()
+	@Override
+	public City addCity(City city) {
+<span class="fc" id="L27">		cityRepo.save(city); </span>
+<span class="fc" id="L28">		List&lt;Integer&gt;theaters=city.getTheaters();</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">		for(Integer i:theaters) {</span>
+<span class="nc" id="L30">		Theater theater=theaterRepo.findById(i).get();</span>
+<span class="nc" id="L31">		List&lt;Integer&gt;getCity=theater.getCity();</span>
+<span class="nc" id="L32">		getCity.add(city.getCid());</span>
+<span class="nc" id="L33">		theaterRepo.save(theater);</span>
+<span class="nc" id="L34">		}</span>
+<span class="fc" id="L35">		return cityRepo.save(city); </span>
+	}
+
+	@Override
+	public String removeCity(int cid)throws InvalidId {
+<span class="fc" id="L40">		City city=cityRepo.findById(cid).get();</span>
+<span class="pc" id="L41">		List&lt;Integer&gt; theater=cityRepo.findById(cid).orElseThrow(()-&gt;new InvalidId(&quot;Invalid Id&quot;)).getTheaters();</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">		for(int i:theater) {</span>
+<span class="nc" id="L43">			List&lt;Integer&gt; movie=theaterRepo.findById(i).get().getMovies();</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">			for(Integer j:movie) {</span>
+<span class="nc" id="L45">			List&lt;Integer&gt; movieTheater=	moviesRepo.findById(j).get().getTheater();</span>
+<span class="nc" id="L46">		moviesRepo.deleteById(j);</span>
+<span class="nc" id="L47">			}</span>
+<span class="nc" id="L48">			theaterRepo.deleteById(i);</span>
+<span class="nc" id="L49">		}</span>
+	
+<span class="fc" id="L51">	cityRepo.delete(city);</span>
+	
+<span class="fc" id="L53">	return &quot;SUCCESSFULLY DELETED&quot;;</span>
+	}
+
+	@Override
+	public Theater addTheater(Theater theater) {
+<span class="nc" id="L58">	List&lt;Integer&gt;movies=theaterRepo.findById(theater.getTid()).get().getMovies();</span>
+<span class="nc" id="L59">	List&lt;Integer&gt;city=theaterRepo.findById(theater.getTid()).get().getCity();	</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">	for(Integer i:movies) {</span>
+<span class="nc" id="L61">		Movies m=moviesRepo.findById(i).get();</span>
+<span class="nc" id="L62">		List&lt;Integer&gt;theaterId=m.getTheater();</span>
+<span class="nc" id="L63">		theaterId.add(i);</span>
+<span class="nc" id="L64">		moviesRepo.save(m);</span>
+		
+		
+<span class="nc" id="L67">	}</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">	for(Integer i:city) {</span>
+<span class="nc" id="L69">		City c=cityRepo.findById(i).get();</span>
+<span class="nc" id="L70">		List&lt;Integer&gt;theaterId=c.getTheaters();</span>
+<span class="nc" id="L71">		theaterId.add(i);</span>
+<span class="nc" id="L72">		cityRepo.save(c);</span>
+		
+		
+<span class="nc" id="L75">	}</span>
+<span class="nc" id="L76">	return theaterRepo.save(theater);</span>
+		
+	}
+
+	@Override
+	public String removeTheater(int tid)throws InvalidId{
+<span class="fc" id="L82">		Theater theater=theaterRepo.findById(tid).get();</span>
+<span class="pc" id="L83">		List&lt;Integer&gt;movies=theaterRepo.findById(tid).orElseThrow(()-&gt;new InvalidId(&quot;Invalid Id&quot;)).getMovies();</span>
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">		for(Integer i:movies) {</span>
+<span class="nc" id="L85">			Movies m=moviesRepo.findById(i).get();</span>
+<span class="nc" id="L86">			List&lt;Integer&gt;theaterId=m.getTheater();</span>
+<span class="nc" id="L87">			theaterId.remove(i);</span>
+<span class="nc" id="L88">			moviesRepo.save(m);</span>
+<span class="nc" id="L89">		}</span>
+<span class="fc" id="L90">		List&lt;Integer&gt;city=theaterRepo.findById(tid).get().getCity();</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">		for(Integer i:city) {</span>
+<span class="nc" id="L92">			City c=cityRepo.findById(i).get();</span>
+<span class="nc" id="L93">			List&lt;Integer&gt;theaterId=c.getTheaters();</span>
+<span class="nc" id="L94">			theaterId.remove(i);</span>
+<span class="nc" id="L95">			cityRepo.save(c);</span>
+<span class="nc" id="L96">		}</span>
+		
+<span class="fc" id="L98">	theaterRepo.delete(theater);</span>
+<span class="fc" id="L99">	theaterRepo.save(theater);</span>
+<span class="fc" id="L100">	return &quot;SUCCESSFULLY DELETED&quot;;</span>
+	
+	}
+
+	@Override
+	public Movies addMovies(Movies movies) {
+<span class="fc" id="L106">	moviesRepo.save(movies);</span>
+<span class="fc" id="L107">	List&lt;Integer&gt; theater=movies.getTheater();</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">	for(int i:theater) {</span>
+<span class="nc" id="L109">	Theater t=theaterRepo.findById(i).get();</span>
+<span class="nc" id="L110">	List&lt;Integer&gt; allMovies=t.getMovies();</span>
+<span class="nc" id="L111">   allMovies.add(movies.getMid());</span>
+<span class="nc" id="L112">   theaterRepo.save(t);</span>
+<span class="nc" id="L113">	}</span>
+	
+<span class="fc" id="L115">	return moviesRepo.save(movies);</span>
+	
+	}
+
+	@Override
+	public String removeMovies(int mid)throws InvalidId{
+<span class="fc" id="L121">		Movies movie=moviesRepo.findById(mid).get();</span>
+<span class="fc" id="L122">		List&lt;Integer&gt;theater=movie.getTheater();</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">		for(int i:theater) {</span>
+<span class="nc" id="L124">			Theater t=theaterRepo.findById(i).get();</span>
+<span class="nc" id="L125">			t.getMovies().remove(i);</span>
+<span class="nc" id="L126">			theaterRepo.save(t);</span>
+<span class="nc" id="L127">		}</span>
+<span class="fc" id="L128">	moviesRepo.delete(movie);</span>
+	
+<span class="fc" id="L130">	return &quot;SUCCESSFULLY DELETED&quot;;</span>
+	}
+
+	@Override
+	public City getCity(int cid) throws InvalidId {
+<span class="pc" id="L135">	City city=cityRepo.findById(cid).orElseThrow(()-&gt; new InvalidId(&quot;Invalid Id&quot;));</span>
+<span class="nc" id="L136">	return city;</span>
+	
+	}
+
+	@Override
+	public Theater getTheater(int tid) throws InvalidId {
+<span class="pc" id="L142">		Theater theater= theaterRepo.findById(tid).orElseThrow(()-&gt; new InvalidId(&quot;Invalid Id&quot;));</span>
+<span class="nc" id="L143">		return theater;</span>
+	}
+
+	@Override
+	public Movies getMovie(int mid) throws InvalidId {
+<span class="pc" id="L148">		Movies movies=moviesRepo.findById(mid).orElseThrow(()-&gt; new InvalidId(&quot;Invalid Id&quot;));</span>
+<span class="nc" id="L149">		return movies;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

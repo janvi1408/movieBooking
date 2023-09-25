@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.cg.admin.MovieBookingAppApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.442 s - in com.cg.admin.MovieBookingAppApplicationTests

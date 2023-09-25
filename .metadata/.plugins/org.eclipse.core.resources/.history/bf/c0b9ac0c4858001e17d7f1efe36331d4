@@ -1,0 +1,5 @@
+package com.cg.admin.services;
+
+public interface MovieService {
+
+}

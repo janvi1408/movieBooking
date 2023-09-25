@@ -1,0 +1,42 @@
+package com.cg.order;
+
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.cg.order.exception.InvalidOrderId;
+import com.cg.order.model.Orders;
+import com.cg.order.repo.OrderRepo;
+import com.cg.order.service.OrderService;
+
+@SpringBootTest
+class OrderApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+    @Mock private OrderRepo repo;
+    @InjectMocks private OrderService services ;
+
+    @Test
+    void testToGetOrders() throws InvalidOrderId {
+        int OrdersId = 232;
+        Orders orders = new Orders(232,"ls",1,1);
+        
+        when(repo.findById(OrdersId)).thenReturn(Optional.of(orders));
+        
+        assertEquals("ls", services.getById(OrdersId).getCustomerName());
+   
+    }
+
+}
+	
+	
+	
+}

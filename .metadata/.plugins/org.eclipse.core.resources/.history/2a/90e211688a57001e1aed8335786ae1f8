@@ -1,0 +1,13 @@
+package com.cg.banking;
+
+import jakarta.persistence.Entity;
+import lombok.Data;
+
+@Entity
+@Data
+public class User {
+private String userName;
+private int userId;
+private int pin;
+private String mobileNumber;
+}

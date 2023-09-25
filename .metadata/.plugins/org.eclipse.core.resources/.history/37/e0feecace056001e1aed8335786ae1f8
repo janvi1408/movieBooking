@@ -1,0 +1,5 @@
+package com.cg.order.exception;
+
+public class InvalidOrderId {
+
+}

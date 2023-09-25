@@ -1,0 +1,88 @@
+package com.cg.admin;
+
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.cg.admin.pojo.City;
+import com.cg.admin.pojo.Movies;
+import com.cg.admin.pojo.Theater;
+import com.cg.admin.repo.CityRepo;
+import com.cg.admin.repo.MoviesRepo;
+import com.cg.admin.repo.TheaterRepo;
+import com.cg.admin.services.MovieServiceImpl;
+@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+class MovieBookingAppApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+	@Mock CityRepo crepo;
+	@Mock MoviesRepo mrepo;
+	@Mock TheaterRepo trepo;
+	@InjectMocks
+	com.cg.admin.services.MovieService services=new MovieServiceImpl();
+	
+
+
+
+//	@Test
+//	void getMoviesTestException() throws IdNotFoundException {
+//		int movieId = 1;
+//		List<Integer> l = new ArrayList<Integer>();
+//		
+//		Movies movie = new Movies(2,"jawan",l);
+//
+//		when(mrepo.findById(movieId)).thenReturn(Optional.of(movie));
+//
+//		assertThrows(IdNotFoundException.class, () -> services.getMovie(movieId));
+//		
+//
+//	}
+	@Test
+	void testRemoveTheatre() {
+		int tId = 1;
+		List<Integer> l = new ArrayList<Integer>();
+		
+		Theater theatre = new Theater(1,l,"pvr",l);
+		
+		 when(trepo.findById(tId)).thenReturn(Optional.of(theatre));
+		 assertEquals("succesfully deleted",services.removeTheater(tId));
+	}
+	@Test
+	void testRemoveMovie() {
+		int movieId = 1;
+		List<Integer> l = new ArrayList<Integer>();
+		
+		Movies movie = new Movies(1,"jawan",l);
+		
+		 when(mrepo.findById(movieId)).thenReturn(Optional.of(movie));
+		
+		 assertEquals("succesfully deleted",services.removeMovies(movieId));
+	}
+	@Test
+	void testRemoveCity() {
+		
+		int cityId = 1;
+		List<Integer> l = new ArrayList<Integer>();
+		
+		City city = new City(1,l,"pune");
+		
+		 when(crepo.findById(cityId)).thenReturn(Optional.of(city));
+		
+		 assertEquals("succesfully deleted",services.removeCity(cityId));
+	}
+
+
+}
+

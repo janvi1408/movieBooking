@@ -1,0 +1,13 @@
+package com.cg.order.service;
+
+import com.cg.order.model.Orders;
+
+import alldto.CategoryDTO;
+import alldto.ProductDTO;
+
+public interface OrderService {
+public Orders create(Orders order);
+public CategoryDTO findByCategory(int categoryId);
+public ProductDTO findByProduct(int productId);
+public String statusOrder(int categoryId,int productId);
+}

@@ -1,0 +1,21 @@
+server:
+  port: 9999
+  servlet:
+    context-path: inventory
+
+spring:
+    application:
+        name: Ingredient
+    jackson:
+        default-property-inclusion: non-null
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/ingredient?createDatabaseIfNotExist=true
+        username: root
+        password: Jaanu@1408
+
+    jpa:
+        show-sql: false
+        hibernate:
+            ddl-auto: update
+

@@ -1,0 +1,10 @@
+package com.cg.product.service;
+
+import com.cg.product.model.myProduct;
+
+public interface ProductServices {
+public myProduct add(myProduct products);
+public void delete(int pid);
+public myProduct update(int pid,String productName);
+public myProduct getByid(int pid);
+}
