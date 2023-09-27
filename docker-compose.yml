@@ -24,7 +24,7 @@ services:
         "eureka.client.service-url.defaultZone" : "http://eureka:8761/eureka"
        }'
     ports:
-      - 8080:8080
+      - 3333:3333
     networks:
       - mynetwork
   user:
