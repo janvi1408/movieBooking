@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService{
 
 
 @Override
+
 public List<String> city(int cid) throws InvalidId {
 	// TODO Auto-generated method stub
 List<Integer> th =rest.getForEntity("http://localhost:2222/city/"+ cid,CityDTO.class).getBody().getTheaters();
