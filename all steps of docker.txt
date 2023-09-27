@@ -1,0 +1,98 @@
+=================================<docker>================================================================================================================
+to make jar file write <final> </final>
+1. Create a file with title "Dockerfile" in source directory of the project
+2. add finalname in pom file. (in the build section in last)
+3. run maven clean
+4. run maven install
+5. Write in Dockerfile<Dockerfile>
+
+Sample :
+FROM openjdk:17
+EXPOSE 8080
+ADD target/categorymanagement-docker.jar categorymanagement-docker.jar
+ENTRYPOINT [ "java", "-jar", "/categorymanagement-docker.jar" ]
+
+
+==============================DOCKER-COMPOSE=============================================================================================
+1 MAKE NEW FILE and paste in that workspace
+version: "3.8"
+services:
+  mysqldb:
+    image: mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3306:3306
+    networks:
+      - mynetwork
+  eureka:
+    build: ./eureka-server
+    restart: on-failure
+    ports:
+      - 8761:8761
+    networks:
+      - mynetwork	
+  gateway:
+    build: ./api-gateway
+    restart: on-failure
+    environment:
+       SPRING_APPLICATION_JSON: '{
+        "eureka.client.service-url.defaultZone" : "http://eureka:8761/eureka"
+       }'
+    ports:
+      - 8085:8085
+    networks:
+      - mynetwork
+  user:
+    depends_on:
+      - mysqldb
+    build: ./user
+    restart: on-failure
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "eureka.client.service-url.defaultZone" : "http://eureka:8761/eureka",
+        "spring.datasource.url" : "jdbc:mysql://mysqldb:3306/admin?createDatabaseIfNotExist=true",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "root"
+      }'
+   
+      
+    ports:
+      - 1002:1002
+    networks:
+      - mynetwork
+  admin:
+    depends_on:
+      - mysqldb
+    build: ./Admin
+    restart: on-failure
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "eureka.client.service-url.defaultZone" : "http://eureka:8761/eureka",
+        "spring.datasource.url" : "jdbc:mysql://mysqldb:3306/admin?createDatabaseIfNotExist=true",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "root"
+      }'
+    ports:
+      - 1000:1000
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
+
+2. remove target from gitignore file
+3. open cmd from that workspace 
+ a. git init . # initialize a floder new repo
+ b. git remote add origin http...........<repo link> # connect to remote repo
+ c. git add .  # it move the files of working directory to the staging area ,Stage all changes in the current directory for commit
+ d. git commit -m ""  # staged files move into local repository
+ e. git push -f origin master  # move files local to central
+
+4. open play with docker 
+a. git clone <link which is copied from git hub code> #to make local repo
+b. cd <repo name>
+c. ls
+d. docker-compose up(docker compose file will run) 
+
+docker-compose down(docker compose file will stop)

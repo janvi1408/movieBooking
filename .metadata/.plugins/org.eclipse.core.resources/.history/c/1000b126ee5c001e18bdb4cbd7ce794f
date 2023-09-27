@@ -5,11 +5,11 @@ spring:
     gateway:
       routes:
         - id: admin
-          uri: lb://admin/ # Use the name of the microservice as registered in your service registry (e.g., Eureka)
+          uri: http://localhost:2222 # Use the name of the microservice as registered in your service registry (e.g., Eureka)
           predicates:
             - Path=/admin/**
         - id: user
-          uri: lb://user/ # Use the name of the microservice as registered in your service registry (e.g., Eureka)
+          uri: http://localhost:8888 # Use the name of the microservice as registered in your service registry (e.g., Eureka)
           predicates:
             - Path=/user/**
 eureka:
