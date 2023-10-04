@@ -55,6 +55,7 @@ public class MovieServiceImpl implements MovieService{
 
 	@Override
 	public Theater addTheater(Theater theater) {
+		
 	List<Integer>movies=theaterRepo.findById(theater.getTid()).get().getMovies();
 	List<Integer>city=theaterRepo.findById(theater.getTid()).get().getCity();	
 	for(Integer i:movies) {

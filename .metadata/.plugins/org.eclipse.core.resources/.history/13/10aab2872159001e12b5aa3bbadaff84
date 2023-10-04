@@ -1,5 +1,0 @@
-package com.cg.user.service;
-
-public interface UserService {
-	public CityDTO city(int cid);
-}

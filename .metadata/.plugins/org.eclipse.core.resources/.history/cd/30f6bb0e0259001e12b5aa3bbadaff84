@@ -1,5 +1,0 @@
-package com.cg.admin.aop;
-
-public class LoggingAdvice {
-
-}

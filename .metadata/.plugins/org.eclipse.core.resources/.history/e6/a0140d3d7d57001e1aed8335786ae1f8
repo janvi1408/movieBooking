@@ -1,8 +1,0 @@
-package com.cg.banking.exception;
-
-public class InvalidAccountId extends Exception {
-
-	private InvalidAccountId(String message) {
-		super(message);
-	}
-}

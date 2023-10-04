@@ -1,23 +1,62 @@
 spring:
   application:
     name: gateway
+#  main:
+#    allow-bean-definition-overriding: true
+#  security:
+#    user:
+#      name: rishu
+#      password: rishu
+    
+
+   
   cloud:
     gateway:
       routes:
-        - id: admin
-          uri: lb://admin/ # Use the name of the microservice as registered in your service registry (e.g., Eureka)
+        - id: categories
+          uri: http://localhost:1111 # Use the name of the microservice as registered in your service registry (e.g., Eureka)
           predicates:
-            - Path=/admin/**
-        - id: user
-          uri: lb://user/ # Use the name of the microservice as registered in your service registry (e.g., Eureka)
+            - Path=/v1/**
+          filters:
+            - name: SecurityFilter
+              args:
+                roles: ADMIN
+        - id: ad
+          uri: http://localhost:1119 # Use the name of the microservice as registered in your service registry (e.g., Eureka)
           predicates:
-            - Path=/user/**
+            - Path=/ad/**
+          filters:
+            - name: SecurityFilter
+              args:
+                roles: USER
+  autoconfigure:
+    exclude:
+    - org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+             
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
 server:
-  port: 3333     
+  port: 3333 
+  
+   
+
+  
+
+
+
+#  ssl:
+#    enabled: true
+##    client-auth: need
+#    key-store-type: PKCS12
+#    key-store: mtls/server-keystore.jks
+#    trust-store: mtls/server-truststore.jks
+#
+#    trust-store-password: server
+#    key-store-password: server
+#    protocol: TLS
+#    enabled-protocols: TLSv1.2  
       
       
 

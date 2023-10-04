@@ -1,5 +1,0 @@
-package com.cg.banking.services;
-
-public interface AccountService {
-
-}

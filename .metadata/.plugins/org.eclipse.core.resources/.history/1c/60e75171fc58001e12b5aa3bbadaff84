@@ -1,5 +1,0 @@
-package com.cg.admin.exception;
-
-public class ExceptionHandler {
-
-}

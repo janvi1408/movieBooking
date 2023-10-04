@@ -1,5 +1,0 @@
-package com.cg.banking.aop;
-
-public class LoggingAdvice {
-
-}
